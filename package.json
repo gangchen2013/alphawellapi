@@ -1,0 +1,24 @@
+{
+	"name": "alphawell_api_app",
+	"version": "0.0.1",
+	"description": "Backend API for machine learning processing",
+	"scripts": {
+		"start": "node app.js",
+		"stop": "pkill -f node"
+	},
+	"directories": {
+		"test": "test"
+	},
+	"dependencies": {
+		"async": "^2.6.0",
+		"aws-sdk": "*",
+		"body-parser": "1.9.x",
+		"chai": "^3.4.1",
+		"express": "4.12.x",
+		"jsonwebtoken": "^8.1.0",
+		"lodash": "^4.17.4",
+		"mocha": "^2.3.4",
+		"request": "*"
+	},
+	"repository": {}
+}
