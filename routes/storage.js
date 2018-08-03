@@ -3,7 +3,8 @@ var express = require('express')
   , AWS = require("aws-sdk")
   , async = require('async')
   , multer = require('multer')
-  , exec = require('child_process').execFile;
+  , exec = require('child_process').execFile
+  , fs = require('fs');  // file system
 
 const _ = require('lodash');
 //  , fs = require('fs');
@@ -57,12 +58,19 @@ router.get('/file', function(req, res, next) {
   // Get file anme
   var filename = req.query.filename;
   console.log("Fetch file: " + filename);
+
+  //Read from local OS
+  // logic here to determine what file, etc
+  var rstream = fs.createReadStream('/tmp/reports/' + filename);
+  rstream.pipe(res);
+
+  // Read from S3
   //console.log("S3 ojbect is: " + JSON.stringify(s3));
   //s3.getObject({Bucket: bucketName, Key: filename}).forwardToExpress(res, next);
-  s3.getObject({Bucket: bucketName, Key: filename})
-    .createReadStream()
-    .on('error', next)
-    .pipe(res);
+  //s3.getObject({Bucket: bucketName, Key: filename})
+  //  .createReadStream()
+  //  .on('error', next)
+  //  .pipe(res);
 
 });
 

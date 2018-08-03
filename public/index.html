@@ -18,15 +18,20 @@
             <h1>Hi there!</h1>
           <p>Thanks for creating a
             <span class = "blue">NodeJS Starter Application</span>.
+            <br/><br/>
+            <form method="POST" action="/api/data/historical" enctype="multipart/form-data">
+                <div class="field">
+                    <label for="image">File Upload</label>
+                    <input type="file" name="inputfile" id="inputfile">
+                </div>
+                <input type="submit" class="btn" value="Save">
+            </form>
+
+        </tr>
+
     </table>
 
-    <form method="POST" action="/api/data/historical" enctype="multipart/form-data">
-        <div class="field">
-            <label for="image">File Upload</label>
-            <input type="file" name="inputfile" id="inputfile">
-        </div>
-        <input type="submit" class="btn" value="Save">
-    </form>
+
 
   </body>
 
