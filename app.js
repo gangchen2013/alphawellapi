@@ -3,7 +3,7 @@
 
 var express = require('express'), router = express.Router(),
 	http = require('http'), path = require('path'), AWS = require("aws-sdk"),
-	config = require('./config'), jwt = require('jsonwebtoken'),
+	config = require('./config'), jwt = require('jsonwebtoken'), multer = require('multer'),
 	fs = require('fs'), bodyParser = require('body-parser');
 
 var app = express();
@@ -13,8 +13,10 @@ app.set('port', process.env.PORT || 3000);
 app.set('json spaces', 2);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(router);
+
+
 
 //Define the securitry routing
 router.use('/api/system/authenticate', require('./routes/authentication.js'));
@@ -26,7 +28,7 @@ router.get('/api/system/health', function(req, res) {
   });
 })
 
-//AWS.config.loadFromPath('./config.json');
+AWS.config.loadFromPath('./config.json');
 
 // simple logger for this router's requests
 // all requests to this router will first hit this middleware
@@ -50,43 +52,43 @@ router.use(function(req, res, next) {
 // ---------------------------------------------------------
 // route middleware to authenticate and check token
 // ---------------------------------------------------------
+/*
 router.use(function(req, res, next) {
 
-	// check header or url parameters or post parameters for token
-	var token = req.body.token || req.query.token || req.headers['x-access-token'];
-  console.log("User access token is: " + token);
-	// decode token
-	if (token) {
+			// check header or url parameters or post parameters for token
+			var token = req.body.token || req.query.token || req.headers['x-access-token'];
+		  console.log("User access token is: " + token);
+			// decode token
+			if (token) {
 
-		// verifies secret and checks exp
-		jwt.verify(token, config.secret, function(err, decoded) {
-			if (err) {
-				console.log(JSON.stringify(err));
-				//return res.json({ success: false, message: 'Failed to authenticate token.' });
+				// verifies secret and checks exp
+				jwt.verify(token, config.secret, function(err, decoded) {
+					if (err) {
+						console.log(JSON.stringify(err));
+						//return res.json({ success: false, message: 'Failed to authenticate token.' });
+						return res.status(403).send({
+							success: false,
+							message: 'Failed to authenticate token.'
+						});
+					} else {
+						// if everything is good, save to request for use in other routes
+						req.decoded = decoded;
+						next();
+					}
+				});
+
+				} else {
+
+				// if there is no token
+				// return an error
 				return res.status(403).send({
 					success: false,
-					message: 'Failed to authenticate token.'
+					message: 'No token provided.'
 				});
-			} else {
-				// if everything is good, save to request for use in other routes
-				req.decoded = decoded;
-				next();
+
 			}
-		});
-
-	} else {
-
-		// if there is no token
-		// return an error
-		return res.status(403).send({
-			success: false,
-			message: 'No token provided.'
-		});
-
-	}
-
 });
-
+*/
 
 
 //Set up API routes

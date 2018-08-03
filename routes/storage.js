@@ -1,11 +1,22 @@
 var express = require('express')
   , router = express.Router()
   , AWS = require("aws-sdk")
-  , async = require('async');
+  , async = require('async')
+  , multer = require('multer')
+  , exec = require('child_process').execFile;
 
 const _ = require('lodash');
 //  , fs = require('fs');
 
+//File Upload directory
+var storage = multer.diskStorage({ // https://github.com/expressjs/multer
+  destination: 'public/uploads/',
+  limits : { fileSize:100000000 },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+var upload = multer({ storage: storage });
 
 //Need this trick to set the AWS endpoint
 AWS.config.update({
@@ -23,6 +34,21 @@ router.get('/health', function(req, res) {
   res.json({
     status: "ok"
   });
+});
+
+//Upload file
+router.post('/historical', upload.single('inputfile'), function(req, res) {
+  //Copy the file to another folder
+  const child = exec('cp', [req.file.path, '/tmp/reports'], (error, stdout, stderr) => {
+    if (error) {
+        console.error('stderr', stderr);
+        throw error;
+    }
+    console.log('stdout', stdout);
+  });
+
+  res.send("Files successfully uploaded: " + JSON.stringify(req.file));
+  //console.dir(req.files);
 });
 
 //Stream the images and user manual
