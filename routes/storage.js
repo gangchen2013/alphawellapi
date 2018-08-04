@@ -37,10 +37,12 @@ router.get('/health', function(req, res) {
   });
 });
 
-//Upload file
-router.post('/historical', upload.single('inputfile'), function(req, res) {
+//Upload a single file
+//router.post('/historical', upload.single('inputfile'), function(req, res) {
+//Upload multiple files
+router.post('/historical', upload.array('inputfile', 2), function(req, res) {
   //Copy the file to another folder
-  const child = exec('cp', [req.file.path, '/tmp/reports'], (error, stdout, stderr) => {
+  const child = exec('cp', [req.files[0].path, '/tmp/reports'], (error, stdout, stderr) => {
     if (error) {
         console.error('stderr', stderr);
         throw error;
@@ -48,7 +50,7 @@ router.post('/historical', upload.single('inputfile'), function(req, res) {
     console.log('stdout', stdout);
   });
 
-  res.send("Files successfully uploaded: " + JSON.stringify(req.file));
+  res.send("Files successfully uploaded: " + JSON.stringify(req.files));
   //console.dir(req.files);
 });
 
