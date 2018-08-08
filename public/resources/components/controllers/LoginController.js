@@ -6,13 +6,13 @@ app.controller('LoginController', ['$scope','$location','BlueAPIService','UserIn
 
 	 $scope.save = function (loginForm) {
 
-		 $scope.payload = 'grant_type=password&scope=blue&username='+$scope.username+'&password='+$scope.password
+		 $scope.payload = 'userId='+$scope.username+'&passwd='+$scope.password
 
 		 BlueAPIService.loginUser($scope.payload, function (response) {
 	 			console.log("Login Result" + response)
 				UserInfoService.state.accessToken = response.data.access_token
 				UserInfoService.state.authenticated = true;
-				$location.path('/catalog');
+				$location.path('/report');
 
 	 		}, function (error){
 	 			console.log("Login Error: " + error);

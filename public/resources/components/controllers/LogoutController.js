@@ -8,6 +8,6 @@ app.controller('LogoutController', ['$scope','$location','UserInfoService', 'CON
 	UserInfoService.state.authenticated = false;
 	UserInfoService.state.accessToken = '';
 	sessionStorage.clear();
-  $location.path('/catalog');
+  $location.path('/home');
 
 }]);
