@@ -1,0 +1,35 @@
+<div class="header">
+  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+    <img style="width:45px;height:45px;float:left;" ng-src="images/common/case_logo.png" class="pure-img">
+    <a class="pure-menu-heading" target="_blank">AlphaWell Analytics Platform</a>
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item pure-menu-selected"><a class="pure-menu-link" href="#!/">Home</a></li>
+      <li class="pure-menu-item"><a class="pure-menu-link" href="#!/report">Report</a></li>
+      <li ng-show="!loggedIn" class="pure-menu-item"><a class="pure-menu-link" href="#!/login">Log In</a></li>
+      <li ng-show="loggedIn" class="pure-menu-item"><a class="pure-menu-link" href="#!/customer">Profile</a></li>
+      <li ng-show="loggedIn" class="pure-menu-item"><a class="pure-menu-link" href="#!/logout">Logout</a></li>
+    </ul>
+  </div>
+</div>
+<div class="splash-container">
+  <div class="splash">
+    <h1 class="splash-head">AlphaWell!</h1>
+    <p class="splash-subhead">AlphaWell offer end-to-end cloud based reservoir optimization platform for Oil and Gas companies
+      to maximize reservoir Net Present Value (NPV).
+      The solution leverages modern machine learning algorithm to provide a pure data-driven approach.
+      The analytics platform is built with mathematical models as the core of the data-driven approach
+      while providing Human-centric user interface to assist reservoir engineer and field operation personnel. </p>
+
+      <p>
+        Modern reservoir simulation has been playing more and more important role in oil production.
+        However, the modeling is becoming more and more complicated due to more physics involved and more parameters to be provided.
+        Computational limitations - inability to run large numbers of simulations
+        Lack of adequate historical data to calibrate reservoir models
+        Large uncertainty in physical properties, 
+        Unpredictable oil and gas prices
+        Most of the current data-driven software are still traditional deliverable model and less user friendly
+      </p>
+
+    <p><a class="pure-button pure-button-primary" href="#!/catalog">Browse Item Catalog</a></p>
+  </div>
+</div>

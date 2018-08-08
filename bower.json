@@ -1,0 +1,28 @@
+{
+  "name": "alphawell_ui",
+  "version": "1.0.0",
+  "authors": [
+    "Gang Chen gangchen2011@gmail.com"
+  ],
+  "description": "UI for AlphaWell analyics platform",
+  "main": "?",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.6.2",
+    "angular-route": "1.6.2",
+    "angular-base64": "2.0.4"
+  },
+  "directory": "public/resources",
+  "resolutions": {
+    "angular": "1.6.2"
+  }
+}

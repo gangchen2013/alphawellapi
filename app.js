@@ -4,7 +4,7 @@
 var express = require('express'), router = express.Router(),
 	http = require('http'), path = require('path'), AWS = require("aws-sdk"),
 	config = require('./config'), jwt = require('jsonwebtoken'), multer = require('multer'),
-	fs = require('fs'), bodyParser = require('body-parser');
+	index = require('./routes/index'), fs = require('fs'), bodyParser = require('body-parser');
 
 var app = express();
 
@@ -89,6 +89,12 @@ router.use(function(req, res, next) {
 			}
 });
 */
+
+app.use('/', index);
+
+app.use('/', express.static('public/resources'));
+app.use('/', express.static('public/stylesheets'));
+app.use('/', express.static('public/javascripts'));
 
 
 //Set up API routes
