@@ -43,9 +43,9 @@ app.config(['$routeProvider', function($routeProvider) {
        template: '',
        controller: 'LogoutController'
     })
-    .when('/catalog', {
-       templateUrl : baseUrl + 'catalog.html',
-       controller: 'CatalogController'
+    .when('/report', {
+       templateUrl : baseUrl + 'report.html',
+       controller: 'ReportController'
     })
     .when('/item/:id', {
        templateUrl : baseUrl + 'item.html',

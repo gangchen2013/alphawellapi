@@ -2,11 +2,8 @@ var express = require('express')
   , router = express.Router()
   , AWS = require("aws-sdk")
   , async = require('async')
-//  , fs = require('fs');
+  , fs = require('fs');
 
-//var docClient = db.DocumentClient;
-var table = "DRILLRIGASSET";
-var indexName = "assetsByRigId";
 
 // Quick health check API
 router.get('/health', function(req, res) {
@@ -17,39 +14,28 @@ router.get('/health', function(req, res) {
 })
 
 // Return all items for a drillrigId
-router.get('/rig', function(req, res) {
+router.get('/list', function(req, res) {
 
-  console.log("Input rigId is: " + req.query.drillrigId);
-  var drillrigId = req.query.drillrigId;
-  var params = {
-      TableName: table,
-      IndexName: indexName,
-      KeyConditionExpression: "drillrigId = :input",
-      ExpressionAttributeValues: { ":input": drillrigId}
-  };
+  console.log("Return current user report");
 
-  var assetsResponse;
   res.setHeader('Content-Type', 'application/json');
 
-  async.series([
-      function(callback) {
+  var path = "output";
 
-        //Query Database
-        db.query(params, function(err, data) {
-          if (err) {
-              console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-          } else {
-              console.log("Get assets succeeded:", JSON.stringify(data, null, 2));
-              assetsResponse = data.Items;
-              callback();
-          }
-        });
 
-      }],
-      function(err, results) {
-        console.log("Write resposne" + JSON.stringify(assetsResponse));
-        res.send(JSON.stringify(assetsResponse));
-      });
+  fs.readdir(path, function(err, items) {
+      var responseList = [];
+
+      for (var i=0; i<items.length; i++) {
+          var obj = {};
+          obj.name = items[i];
+          obj.time = fs.statSync(path+"/"+items[i]).mtime.getTime();
+          responseList.push(obj);
+      }
+      //res.send(JSON.stringify(items));
+      console.log("JSON Array is: " + JSON.stringify(responseList));
+      res.send(responseList);
+  });
 
 });
 
